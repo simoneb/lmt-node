@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var matchRoutes = require('./routes/matchRoutes');
+var docs = require("express-mongoose-docs");
+var mongoose = require('mongoose');
 
 var app = express();
 
@@ -27,6 +29,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use(matchRoutes);
 
+docs(app, mongoose); // 2nd param is optional
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
@@ -43,5 +47,7 @@ app.use(function (err, req, res, next) {
     error: err
   });
 });
+
+
 
 module.exports = app;
